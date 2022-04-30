@@ -1,12 +1,12 @@
 # Not At Home
 # 3 CPU, 1 player
 
-import random
-import time
+import random, time, itertools
 
 class opponent:
-    def __init__(self, difficulty):
+    def __init__(self, difficulty, hand):
         self.d = difficulty
+        self.h = hand
 
 
 def rules():
@@ -53,20 +53,53 @@ def decideDifficulty():
             diff = input()
 
         opponents.append("op")
-        opponents[-1] = opponent(diff)
+        opponents[-1] = opponent(diff, [])
+
+    return opponents
 
 
-def dealCards():
+def dealCards(opponents):
+    deck = list(itertools.product(['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], ['Spade', 'Heart', 'Diamond', 'Club']))
+    random.shuffle(deck)
+
+    playerHand = []
+
+    for i in range(len(deck)):
+        if i%4 == 0:
+            playerHand.append(deck[i])
+        elif i%4 == 1:
+            opponents[0].h.append(deck[i])
+        elif i%4 == 2:
+            opponents[1].h.append(deck[i])
+        else:
+            opponents[2].h.append(deck[i])
+
+    #for i in range(0,3):
+    #    print(f"comp {i+1}:\n{opponents[i].h}\n")
+
+    #print(playerHand)
+
+    return opponents, playerHand
+
+
+def startRound1(opponents, playerHand):
     pass
 
 
-def startGame():
-    dealCards()
+def startRound2(opponenets, playerHand):
+    pass
+
+
+def declareWinner(opponenets, playerHand):
+    pass
 
 
 def playGame():
-    decideDifficulty()
-    startGame()
+    opponents = decideDifficulty()
+    opponents, playerHand = dealCards(opponents)
+    opponents, playerHand = startRound1(opponents, playerHand)
+    opponents, playerHand = startRound2(opponents, playerHand)
+    opponents, playerHand = declareWinner(opponents, playerHand)
 
 
 def menu():
@@ -87,12 +120,5 @@ def menu():
     else:
         exit()
 
-
-def intro():
-    print("Welcome to the famous card game: \nNot At Home!")
-
-    menu()
-
-
 if __name__ == "__main__":
-    intro()
+    menu()
