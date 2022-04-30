@@ -11,7 +11,7 @@ class opponent:
 
 def rules():
     ruleStr = '''
-    Not at home is a game for 3-6 players. All cards are dealt out to all players.
+    Not at home is a game for 3+ players. All cards are dealt out to all players.
     This game will be played with you, and 3 other computer opponents.
     The game is split into 2 rounds, and the aim of the game is to collect all of the cards by the end.
 
