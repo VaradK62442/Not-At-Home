@@ -59,7 +59,7 @@ def decideDifficulty():
 
 
 def dealCards(opponents):
-    deck = list(itertools.product(['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], ['Spade', 'Heart', 'Diamond', 'Club']))
+    deck = list(itertools.product(['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k'], ['spade', 'heart', 'diamond', 'club']))
     random.shuffle(deck)
 
     playerHand = []
@@ -82,8 +82,84 @@ def dealCards(opponents):
     return opponents, playerHand
 
 
-def startRound1(opponents, playerHand):
+def easyGuess(opponents, playerHand):
     pass
+
+
+def medGuess(opponents, playerHand):
+    pass
+
+
+def hardGuess(opponents, playerHand):
+    pass
+
+
+def startRound1(opponents, playerHand):
+    turn = 1
+
+    suits = ["spades", "diamonds", "clubs", "hearts"]
+    cards = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k']
+    names = ["player", "cpu 1", "cpu 2", "cpu 3"]
+
+    match turn:
+        case 1:
+            print("Your hand: ")
+            print(playerHand)
+
+            suitGuess = ""
+            print("Please enter which suit you would like to guess: ")
+            print("- Spades\n- Diamonds\n- Clubs\n- Hearts\n")
+            while suitGuess.lower() not in suits:
+                suitGuess = input()
+
+            cardGuess = ""
+            print("Please enter which card you would like to guess: ")
+            print("- A\n- 2\n- 3\n- 4\n- 5\n- 6\n- 7\n- 8\n- 9\n- 10\n- J\n- Q\n- K\n")
+            while cardGuess.lower() not in cards:
+                cardGuess = input()
+
+            target = ""
+            print("Please enter who you would like to ask: ")
+            print("- CPU 1\n- CPU 2\n- CPU 3\n")
+            while target.lower() not in names:
+                target = input()
+
+            if target.lower() == "cpu 1":
+                target = 0
+            elif target.lower() == "cpu 2":
+                target = 1
+            else:
+                target = 2
+
+            if [cardGuess, suitGuess] in opponents[target].h:
+                print(f"The chosen card - the {cardGuess} of {suitGuess} -  was in the chosen opponent's hand.")
+                playerHand.append([cardGuess, suitGuess])
+                opponents[target].h.remove([cardGuess, suitGuess])
+            else:
+                print(f"Not at home! The chosen card - the {cardGuess} of {suitGuess} -  was not in the chosen opponent's hand.")
+
+            turn = turn + 1 + target
+        case 2: # cpu 1
+            if opponents[0].diff == "1":
+                easyGuess(opponents, playerHand)
+            elif opponents[0].diff == "2":
+                medGuess(opponents, playerHand)
+            else:
+                hardGuess(opponents, playerHand)
+        case 3: # cpu 2
+            if opponents[1].diff == "1":
+                easyGuess(opponents, playerHand)
+            elif opponents[1].diff == "2":
+                medGuess(opponents, playerHand)
+            else:
+                hardGuess(opponents, playerHand)
+        case 4: # cpu 3
+            if opponents[2].diff == "1":
+                easyGuess(opponents, playerHand)
+            elif opponents[2].diff == "2":
+                medGuess(opponents, playerHand)
+            else:
+                hardGuess(opponents, playerHand)
 
 
 def startRound2(opponenets, playerHand):
