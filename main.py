@@ -59,11 +59,14 @@ def decideDifficulty():
 
 
 def dealCards(opponents):
+    # create list of cards using itertools
     deck = list(itertools.product(['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k'], ['spade', 'heart', 'diamond', 'club']))
+    # shuffle guess
     random.shuffle(deck)
 
     playerHand = []
 
+    # deal out cards
     for i in range(len(deck)):
         if i%4 == 0:
             playerHand.append(deck[i])
