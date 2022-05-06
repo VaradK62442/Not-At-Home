@@ -142,24 +142,10 @@ def startRound1(opponents, playerHand):
                 print(f"Not at home! The chosen card - the {cardGuess} of {suitGuess} -  was not in the chosen opponent's hand.")
 
             turn = turn + 1 + target
-        case 2: # cpu 1
-            if opponents[0].diff == "1":
+        case _: # cpu, _ is default case
+            if opponents[turn-2].diff == "1":
                 easyGuess(opponents, playerHand)
-            elif opponents[0].diff == "2":
-                medGuess(opponents, playerHand)
-            else:
-                hardGuess(opponents, playerHand)
-        case 3: # cpu 2
-            if opponents[1].diff == "1":
-                easyGuess(opponents, playerHand)
-            elif opponents[1].diff == "2":
-                medGuess(opponents, playerHand)
-            else:
-                hardGuess(opponents, playerHand)
-        case 4: # cpu 3
-            if opponents[2].diff == "1":
-                easyGuess(opponents, playerHand)
-            elif opponents[2].diff == "2":
+            elif opponents[turn-2].diff == "2":
                 medGuess(opponents, playerHand)
             else:
                 hardGuess(opponents, playerHand)
